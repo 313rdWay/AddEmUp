@@ -36,57 +36,104 @@ class CalculatorViewModel: ObservableObject {
     func handleButtonPress(_ label: String) {
         switch label {
         case "0"..."9":
-            if displayText == "0" || !isTypingNumber {
-                displayText = label
-                isTypingNumber = true
-            } else {
-                displayText += label
-            }
+            appendDigit(label)
+            
         case ".":
-            if !displayText.contains(".") {
-                displayText += "."
-            }
+            appendDecimal()
+            
         case "+", "-", "x", "÷":
-            if let value = Double(displayText) {
-                previousValue = value
-                currentOperator = label
-                isTypingNumber = false // The next number will replace displayText
-            }
+            setOperator(label)
+            
         case "=":
-            if let op = currentOperator,
-               let prev = previousValue,
-               let current = Double(displayText) {
-                
-                var result: Double = prev
-                
-                switch op {
-                case "+": result = prev + current
-                case "-": result = prev - current
-                case "x": result = prev * current
-                case "÷": result = current != 0 ? prev / current : 0
-                default: break
-                }
-                
-                displayText = String(result)
-                currentOperator = nil
-                previousValue = nil
-                isTypingNumber = false
-            }
+            calculateResult()
+            
         case "AC":
-            displayText = "0"
-            previousValue = nil
-            currentOperator = nil
-            isTypingNumber = false
+            resetCalculator()
+            
         case "+/-":
-            if let value = Double(displayText) {
-                displayText = String(-value)
-            }
+            toggleSign()
+            
         case "%":
-            if let value = Double(displayText) {
-                displayText = String(value / 100)
-            }
+            applyPercentage()
+            
+        case "⬅️":
+            backspace()
+            
         default:
             break
+        }
+    }
+    
+    private func appendDigit(_ digit: String) {
+        if displayText == "0" || !isTypingNumber {
+            displayText = digit
+            isTypingNumber = true
+        } else {
+            displayText += digit
+        }
+    }
+
+    private func appendDecimal() {
+        if !displayText.contains(".") {
+            displayText += "."
+            isTypingNumber = true
+        }
+    }
+
+    private func setOperator(_ op: String) {
+        if let value = Double(displayText) {
+            previousValue = value
+            currentOperator = op
+            isTypingNumber = false
+        }
+    }
+
+    private func calculateResult() {
+        if let op = currentOperator,
+           let prev = previousValue,
+           let current = Double(displayText) {
+            
+            let result: Double
+            switch op {
+            case "+": result = prev + current
+            case "-": result = prev - current
+            case "x": result = prev * current
+            case "÷": result = current != 0 ? prev / current : 0
+            default: return
+            }
+            
+            displayText = String(result)
+            currentOperator = nil
+            previousValue = nil
+            isTypingNumber = false
+        }
+    }
+
+    private func resetCalculator() {
+        displayText = "0"
+        previousValue = nil
+        currentOperator = nil
+        isTypingNumber = false
+    }
+
+    private func toggleSign() {
+        if let value = Double(displayText) {
+            displayText = String(-value)
+        }
+    }
+
+    private func applyPercentage() {
+        if let value = Double(displayText) {
+            displayText = String(value / 100)
+        }
+    }
+    
+    private func backspace() {
+        if displayText.count > 1 {
+            displayText.removeLast()
+        } else {
+            displayText = "0"
+            isTypingNumber = false
         }
     }
 }
