@@ -35,16 +35,6 @@
 			path = AddEmUp;
 			sourceTree = "<group>";
 		};
-		1E45171C2E4C057100CE99E4 /* AddEmUpTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AddEmUpTests;
-			sourceTree = "<group>";
-		};
-		1E4517262E4C057200CE99E4 /* AddEmUpUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AddEmUpUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				1E45170E2E4C057000CE99E4 /* AddEmUp */,
-				1E45171C2E4C057100CE99E4 /* AddEmUpTests */,
-				1E4517262E4C057200CE99E4 /* AddEmUpUITests */,
 				1E45170D2E4C057000CE99E4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,9 +118,6 @@
 			dependencies = (
 				1E45171B2E4C057100CE99E4 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				1E45171C2E4C057100CE99E4 /* AddEmUpTests */,
-			);
 			name = AddEmUpTests;
 			packageProductDependencies = (
 			);
@@ -152,9 +137,6 @@
 			);
 			dependencies = (
 				1E4517252E4C057100CE99E4 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				1E4517262E4C057200CE99E4 /* AddEmUpUITests */,
 			);
 			name = AddEmUpUITests;
 			packageProductDependencies = (
